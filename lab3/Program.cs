@@ -9,7 +9,66 @@ namespace lab3
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(args[0] + args[2]);
+            string[] arg = { "2+", "1-", "13+5234" };
+            Parse(arg);
+            //Console.WriteLine(args[0] + args[2]);
+        }
+        static void Parse(string[] arg)
+        {
+            int n = arg.Length;
+            string[] elements = new string[0];
+            for (int i = 0; i < n; i++)
+            {
+                string str = arg[i];
+                int pos = 0; //current position
+                bool IsNumber = false; //is previous number
+                
+
+                for (int j = 0; j < str.Length; j++)
+                {
+                    switch (str[j])
+                    {
+                        case '+':
+                        case '-':
+                        case '*':
+                        case '/':
+                            if (IsNumber)
+                            {
+                                int m1 = elements.Length;
+                                Array.Resize(ref elements, m1 + 2);
+                                elements[m1] = str.Substring(pos, j);
+                                elements[m1 + 1] = str[j].ToString();
+                                pos = j+1;
+                            }
+                            else
+                            {
+                                int m2 = elements.Length;
+                                Array.Resize(ref elements, m2 + 1);
+                                elements[m2] = str[j].ToString();
+                                
+                            }
+                            break;
+                        default:
+                            if (j == str.Length - 1)
+                            {
+                                int m2 = elements.Length;
+                                Array.Resize(ref elements, m2 + 1);                                
+                                elements[m2] = str.Substring(pos, j-pos+1);
+                                
+                            }
+                            else
+                            {
+                                if (!IsNumber)
+                                {
+                                    IsNumber = true;
+                                    pos = j;
+                                }
+                                
+                            }
+                            break;
+                    }
+                }
+            }
         }
     }
 }
