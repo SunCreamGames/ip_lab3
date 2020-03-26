@@ -84,6 +84,7 @@ namespace lab3
                 {
                     while (i < str.Length && (Char.IsDigit(str[i]) || str[i] == '.'))
                         temp += str[i++].ToString();
+                    i--;
                     output.Enqueue(temp);
                 }
                 //при записывание + или - переводим все операции из стека в выходную строку
@@ -147,12 +148,47 @@ namespace lab3
         }
         public double Solution()
         {
-            double solution = 0;
-            //while (RemainingChain.Count != 0)
-            //{
-
-            //}
-            return solution;
+            Stack<double> stack = new Stack<double>();
+            while (!RemainingChain.IsEmpty)
+            {
+                switch (RemainingChain.First())
+                {
+                    case "+":
+                        RemainingChain.Dequeue();
+                        double element2 = stack.Pop();
+                        double element1 = stack.Pop();
+                        stack.Push( element1 + element2);
+                        break;
+                    case "-":
+                        RemainingChain.Dequeue();
+                        element2 = stack.Pop();
+                        element1 = stack.Pop();
+                        stack.Push(element1 - element2);
+                        break;
+                    case "*":
+                        RemainingChain.Dequeue();
+                        element2 = stack.Pop();
+                        element1 = stack.Pop();
+                        stack.Push(element1 * element2);
+                        break;
+                    case "/":
+                        RemainingChain.Dequeue();
+                        element2 = stack.Pop();
+                        element1 = stack.Pop();
+                        stack.Push(element1 / element2);
+                        break;
+                    case "^":
+                        RemainingChain.Dequeue();
+                        element2 = stack.Pop();
+                        element1 = stack.Pop();
+                        stack.Push(Math.Pow(element1, element2));
+                        break;
+                    default:
+                        stack.Push(Convert.ToDouble(RemainingChain.Dequeue()));
+                        break;
+                }
+            }
+            return stack.Peek();
         }
     }
 }

@@ -22,11 +22,15 @@ namespace lab3
         public void Push(T element)
         {
             if (CountLast <= StackContents.Length)
+                StackContents[CountLast++] = element;
+            
+            else
             {
+                var stackContents = StackContents;
+                Array.Resize(ref stackContents, CountLast + 5);
+                StackContents = stackContents;
                 StackContents[CountLast++] = element;
             }
-            else
-                throw new InvalidOperationException("Stack Overflow");
         }
         public T Pop()
         {

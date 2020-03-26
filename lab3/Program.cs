@@ -11,21 +11,19 @@ namespace lab3
         {
             if (args.Length == 0)
             {
-                string[] arg = { "(8 + 2.15 * 5) / (1 + 3 * 2 - 4)" };
-                //string[] arg = Console.ReadLine()?.Split(" ");
+                //string[] arg = { "(8 + 2.15 * 5) / (1 + 3 * 2 - 4)" };
+                string[] arg = Console.ReadLine()?.Split(" ");
                 ReversePolishNotation argInRPN = new ReversePolishNotation(arg);
-                foreach (var element in argInRPN.RemainingChain)
-                {
-                    Console.Write(element+" ");
-                }
+
+                double solution = argInRPN.Solution();
+                Console.WriteLine(solution);
             }
             else
             {
                 ReversePolishNotation argsInRPN = new ReversePolishNotation(args);
-                foreach (var element in argsInRPN.RemainingChain)
-                {
-                    Console.Write(element);
-                }
+
+                double solution = argsInRPN.Solution();
+                Console.WriteLine(solution);
             }
         }
     }
