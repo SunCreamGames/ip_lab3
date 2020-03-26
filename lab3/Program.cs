@@ -25,6 +25,7 @@ namespace lab3
                 double solution = argsInRPN.Solution();
                 Console.WriteLine(solution);
             }
+            Console.ReadKey();
         }
     }
 }
